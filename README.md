@@ -4,6 +4,6 @@
 
 This repository contains the solution used for my YouTube Flow.Core tutorial videos
 
-YouTube video Part 1: TBA
+YouTube video Part 1: https://youtu.be/L-SDjrLlKlA
 
 Coffees welcomed : https://ko-fi.com/codedispenser
