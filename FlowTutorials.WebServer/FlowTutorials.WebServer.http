@@ -1,0 +1,6 @@
+@FlowTutorials.WebServer_HostAddress = http://localhost:5286
+
+GET {{FlowTutorials.WebServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
