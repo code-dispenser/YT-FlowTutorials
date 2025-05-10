@@ -15,9 +15,9 @@ internal class Starting_A_Flow() : IFlowExample
 
     public async Task RunExample()
     
-        => await GettingValuesInAndOutOfFlow();
+        => await Getting_Values_In_And_Out_Of_Flow();
 
-    private static async Task GettingValuesInAndOutOfFlow()
+    private static async Task Getting_Values_In_And_Out_Of_Flow()
     {
         /*
             * Explicit creation of a flow with the factory methods, using the implicit operators or extension methods

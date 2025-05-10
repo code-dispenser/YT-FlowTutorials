@@ -50,17 +50,21 @@ namespace FlowTutorials.ConsoleClient
 
                     if (IsExitCharacter(input)) break;
 
-                   WipeConsoleScreen();
+                    do
+                    {
+                        WipeConsoleScreen();
 
-                    var codeToPrint = await GeneralUtils.GetCodeSnippet(examples[exampleNumber - 1].FileName, examples[exampleNumber - 1].PrintLineRange);
+                        var codeToPrint = await GeneralUtils.GetCodeSnippet(examples[exampleNumber - 1].FileName, examples[exampleNumber - 1].PrintLineRange);
 
-                    codeToPrint.OnFailure(failure => GeneralUtils.WriteLine(failure.Reason,ConsoleColor.Red)).OnSuccess(success => GeneralUtils.WriteLine(success,ConsoleColor.DarkGray));
+                        codeToPrint.OnFailure(failure => GeneralUtils.WriteLine(failure.Reason, ConsoleColor.Red)).OnSuccess(success => GeneralUtils.WriteLine(success, ConsoleColor.DarkGray));
 
-                    await examples[exampleNumber -1].RunExample();
+                        await examples[exampleNumber -1].RunExample();
 
-                    GeneralUtils.WriteLine($"{GlobalValues.console_Next_Instruction_Text}\r\n", ConsoleColor.Cyan);
+                        GeneralUtils.WriteLine($"{GlobalValues.console_Next_Instruction_Text}", ConsoleColor.Cyan);
 
-                    input = GetInput();
+                        input = GetInput();
+                    }
+                    while (input.Equals("R", StringComparison.CurrentCultureIgnoreCase));
 
                     if (true == IsExitCharacter(input)) break;
 

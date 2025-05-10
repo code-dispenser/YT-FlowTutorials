@@ -41,7 +41,7 @@ internal class Flow_Extension_Actions : IFlowExample
 
         var flowResultFail = await GetContactFromDatabase(999)
                                       .OnSuccess(contact => SendEmail(contact.EmailAddress))
-                                          .OnFailure(failure => Console.WriteLine(failure.Reason))
+                                          .OnFailure(failure => GeneralUtils.WriteLine(failure.Reason, ConsoleColor.Red))
                                               .Finally(failure => (Contact?)null, success => success);
 
         GeneralUtils.WriteLine($"flowResultFail returned: {flowResultFail?.ToString() ?? "null\r\n"}", ConsoleColor.Red);
@@ -75,7 +75,7 @@ internal class Flow_Extension_Actions : IFlowExample
     {
         if (true == fail) return Task.FromResult(Flow<None>.Failed(new Failure.MessagingFailure("Bad email address")));
 
-        Console.Out.WriteLineAsync($"Sending email to: {emailAddress}");
+        GeneralUtils.WriteLine($"Sending email to: {emailAddress}", ConsoleColor.Green);
 
         return Task.FromResult(Flow<None>.Success());
     }
