@@ -19,7 +19,7 @@ public static class GeneralUtils
 
             return String.Join(Environment.NewLine, snippetLines) + Environment.NewLine;
         },
-        _ => new Failure.FileSystemFailure($"{GlobalValues.Unable_To_Locate_Or_Read_File_Text} {filePath}"));
+        _ => Flow<string>.Failed(new Failure.FileSystemFailure($"{GlobalValues.Unable_To_Locate_Or_Read_File_Text} {filePath}")));
     }
 
     public static void WriteLine(string textToWrite, ConsoleColor? foregroundColour = null)
@@ -34,7 +34,10 @@ public static class GeneralUtils
 
     }
 
+    public static async Task<string> ReadJsonRuleFile(string filePath)
 
-
+        => await File.ReadAllTextAsync(filePath);
 }
+
+
 

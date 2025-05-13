@@ -9,9 +9,18 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.3.0" />
-    <PackageReference Include="Flow.Core" Version="2.1.2" />
+    <PackageReference Include="Flow.Core" Version="3.0.0" />
     <PackageReference Include="Instructor.Core" Version="1.0.0" />
     <PackageReference Include="When.Core" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Common\Data\RegistrationDataBad.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Common\Data\RegistrationData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

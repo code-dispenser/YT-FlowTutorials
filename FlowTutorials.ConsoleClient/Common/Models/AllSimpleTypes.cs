@@ -13,16 +13,13 @@ public record ValidationResult(bool IsValid, List<FieldError> FieldErrors);
 
 public record FieldError(string Field, string Message);
 
-internal class Registration
+internal record class Registration
 {
-    public required DateTime RegistrationDate { get; set; }
-    public required string FirstName { get; set; }
-    public required string Surname { get; set; }
-    public required int Age { get; set; }
-    public required string EmailAddress { get; set; }
-    public required string AddressLine { get; set; }
-    public required string Town { get; set; }
-    public required string City { get; set; }
-    public required string County { get; set; }
-    public required string PostCode { get; set; }
+    public required DateTime RegistrationDate { get; init; }
+    public required string   FirstName        { get; init; }
+    public required string  Surname           { get; init; }
+    public required int     Age               { get; init; }
+    public required string  EmailAddress      { get; init; }
+    public required string  AddressLine       { get; init; }
+
 }

@@ -15,4 +15,8 @@ internal class GlobalValues
     public const string Console_Number_Rule_Text           = "Please enter a valid number between 1 and ";
     public const string Unable_To_Locate_Or_Read_File_Text = "Could not find or read the file:";
 
+
+    public const string Json_Registration_File_SubPath     = @"Common\Data\RegistrationData.json";
+    public const string Json_Registration_Bad_File_SubPath = @"Common\Data\RegistrationDataBad.json";
+
 }
