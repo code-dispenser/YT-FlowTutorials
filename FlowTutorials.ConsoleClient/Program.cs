@@ -1,30 +1,34 @@
 ﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Flow.Core.Areas.Extensions;
 using FlowTutorials.ConsoleClient.Common.Seeds;
 using FlowTutorials.ConsoleClient.Common.Utilities;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FlowTutorials.ConsoleClient
 {
     internal class Program
     {
+        //private static readonly Uri _hostAddress = new("https://localhost:7031");// <<<< Choose your poison .net Kestrel web server.
+        private static readonly Uri _hostAddress = new("https://localhost:44380");   // <<<< Choose your poison IISExpress web server.
+
         static async Task Main()
         {
             
-            var container = ConfigureAutofac();
+            var container = ConfigureAutofac(_hostAddress);
 
             using (var scope = container.BeginLifetimeScope())
             {
                 var examples     = scope.Resolve<IEnumerable<IFlowExample>>().OrderBy(x => x.Order).ToList();
                 var exampleCount = examples.Count;
                 var input        = String.Empty;
-
+           
                 while (exampleCount > 0)
                 {
-                   
                     WipeConsoleScreen();
 
                     GeneralUtils.WriteLine($"{GlobalValues.Console_Full_Screen_Text}\r\n", ConsoleColor.Cyan);
-                    
+
                     examples.ForEach
                     (
                         example => GeneralUtils.WriteLine($"{example.Order}: {example.Name}\r\n" +
@@ -32,7 +36,7 @@ namespace FlowTutorials.ConsoleClient
                                                          $"File to breakpoint: {example.FileName}\r\n", ConsoleColor.Gray)
                     );
 
-                    GeneralUtils.WriteLine($"{GlobalValues.Console_Start_Instruction_Text}\r\n",ConsoleColor.Cyan);
+                    GeneralUtils.WriteLine($"{GlobalValues.Console_Start_Instruction_Text}\r\n", ConsoleColor.Cyan);
 
                     input = String.IsNullOrWhiteSpace(input) ? GetInput() : input;
 
@@ -92,11 +96,19 @@ namespace FlowTutorials.ConsoleClient
             Console.Clear();
         }
 
-        private static IContainer ConfigureAutofac()
+        private static IContainer ConfigureAutofac(Uri baseAddress)
         {
             var builder = new ContainerBuilder();
+            var serviceCollection = new ServiceCollection();
+
+            serviceCollection.AddSingleton<HttpClientDelegatingHandler>()
+                                .AddHttpClient(String.Empty, client => client.BaseAddress = baseAddress)
+                                    .AddHttpMessageHandler<HttpClientDelegatingHandler>();
+
+            builder.Populate(serviceCollection);
 
             builder.RegisterAssemblyTypes(typeof(IFlowExample).Assembly).AssignableTo<IFlowExample>().As<IFlowExample>();
+                          
 
             return builder.Build();
         }

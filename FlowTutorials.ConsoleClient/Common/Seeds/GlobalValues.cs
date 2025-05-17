@@ -19,4 +19,7 @@ internal class GlobalValues
     public const string Json_Registration_File_SubPath     = @"Common\Data\RegistrationData.json";
     public const string Json_Registration_Bad_File_SubPath = @"Common\Data\RegistrationDataBad.json";
 
+
+    public const string SuppliersViewPathFormat            = "/suppliers/{0}/view";
+
 }
