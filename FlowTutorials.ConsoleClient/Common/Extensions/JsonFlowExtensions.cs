@@ -7,11 +7,11 @@ namespace FlowTutorials.ConsoleClient.Common.Extensions;
 public static class JsonFlowExt
 {
 
-    public static async Task<Flow<T>> TryCatchJsonResult<T>(this Task<HttpResponseMessage> @this)
+    public static async Task<Flow<T>> TryCatchJsonResult<T>(this Task<HttpResponseMessage> thisFlow)
     {
         try
         {
-            var response = await @this;
+            var response = await thisFlow;
             /*
                 * If you are using and serializing a flow from the server then the failure type should have been set on the server.
                 * i.e there is probably no need to check the status code, but you could do that if necessary.

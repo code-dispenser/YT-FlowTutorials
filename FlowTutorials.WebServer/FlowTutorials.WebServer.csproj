@@ -12,11 +12,8 @@
     <PackageReference Include="Flow.Core" Version="3.1.0" />
     <PackageReference Include="Grpc.AspNetCore.Server" Version="2.71.0" />
     <PackageReference Include="Instructor.Core" Version="1.0.0" />
+    <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
     <PackageReference Include="When.Core" Version="1.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="GrpcServices\" />
   </ItemGroup>
 
   <ItemGroup>

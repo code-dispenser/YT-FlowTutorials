@@ -2,8 +2,11 @@
 using Autofac.Extensions.DependencyInjection;
 using Flow.Core.Areas.Extensions;
 using FlowTutorials.ConsoleClient.Common.Seeds;
+using FlowTutorials.ConsoleClient.Common.Services;
 using FlowTutorials.ConsoleClient.Common.Utilities;
+using FlowTutorials.Contracts.Areas.Suppliers;
 using Microsoft.Extensions.DependencyInjection;
+using ProtoBuf.Grpc.ClientFactory;
 
 namespace FlowTutorials.ConsoleClient
 {
@@ -22,7 +25,7 @@ namespace FlowTutorials.ConsoleClient
                 var examples     = scope.Resolve<IEnumerable<IFlowExample>>().OrderBy(x => x.Order).ToList();
                 var exampleCount = examples.Count;
                 var input        = String.Empty;
-           
+
                 while (exampleCount > 0)
                 {
                     WipeConsoleScreen();
@@ -105,7 +108,14 @@ namespace FlowTutorials.ConsoleClient
                                 .AddHttpClient(String.Empty, client => client.BaseAddress = baseAddress)
                                     .AddHttpMessageHandler<HttpClientDelegatingHandler>();
 
+            /*
+                * Not shown, but the equivalent of a message handler for grpc is an Interceptor - see the Flow repo for mor on this.
+            */
+            serviceCollection.AddCodeFirstGrpcClient<IGrpcSuppliersService>(options => options.Address = baseAddress);
+
             builder.Populate(serviceCollection);
+
+            builder.RegisterType<GrpcSuppliersService>().AsSelf().InstancePerDependency();
 
             builder.RegisterAssemblyTypes(typeof(IFlowExample).Assembly).AssignableTo<IFlowExample>().As<IFlowExample>();
                           

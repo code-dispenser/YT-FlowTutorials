@@ -15,7 +15,7 @@ public static class GeneralUtils
         {
             var lines = await File.ReadAllLinesAsync(filePath);
 
-            string[] snippetLines = lines[printLineRange];
+            string[] snippetLines = printLineRange.End.Value < lines.Length ? lines[printLineRange] : lines[printLineRange.Start .. ];
 
             return String.Join(Environment.NewLine, snippetLines) + Environment.NewLine;
         },

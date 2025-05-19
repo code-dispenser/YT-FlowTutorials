@@ -2,8 +2,11 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FlowTutorials.Application.Configuration;
 using FlowTutorials.Infrastructure.Configuration;
+using FlowTutorials.WebServer.GrpcServices;
+
 using Instructor.Core;
 using Instructor.Core.Common.Seeds;
+using ProtoBuf.Grpc.Server;
 
 namespace FlowTutorials.WebServer
 {
@@ -31,6 +34,8 @@ namespace FlowTutorials.WebServer
 
             builder.Services.AddControllers();
 
+            builder.Services.AddCodeFirstGrpc();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -38,6 +43,8 @@ namespace FlowTutorials.WebServer
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+
+            app.MapGrpcService<GrpcSupplierService>();
 
             app.Run();
         }

@@ -8,7 +8,7 @@ namespace FlowTutorials.Contracts.Areas.Suppliers;
 [Service]
 public interface IGrpcSuppliersService
 {
-    Task<Flow<GetSupplierResponse>> GetSupplier(GetSupplier instruction, CallContext context = default);
+    [Operation]
+    Task<Flow<SupplierViewResponse>> GetSupplierView(SupplierViewRequest instruction, CallContext context = default);
 
-    Task<Flow<None>> DeleteSupplier(DeleteSupplier instruction, CallContext context = default);
 }

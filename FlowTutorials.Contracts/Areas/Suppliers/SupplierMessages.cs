@@ -3,10 +3,24 @@
 namespace FlowTutorials.Contracts.Areas.Suppliers;
 
 /*
-    * Using newer protobuf-net allows c# records without attributes i.e [ProtoContract], [ProtoMember]
+    * For simple types and with newer versions of protobuf-net you can use c# records without attributes see below.
 */
-public record GetSupplier(int SupplierID);
+public record SupplierViewRequest(int SupplierID);
 
-public record GetSupplierResponse(SupplierView SupplierView);
+public record SupplierViewResponse(SupplierView SupplierView);
 
-public record DeleteSupplier(int SupplierID);
+
+/*
+  
+    [ProtoContract]
+    public record class SupplierViewResponse
+    {
+        [ProtoMember(1)] public SupplierView SupplierView { get; }
+
+        public SupplierViewResponse(SupplierView supplierView) => SupplierView = supplierView;
+
+        private SupplierViewResponse() { }
+
+    }
+
+*/
